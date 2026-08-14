@@ -1,173 +1,176 @@
-/* =========================================
+/* =========================================================
    CINEANALYTICS
-   JavaScript principal
-========================================= */
+   Google Analytics 4
+   Measurement ID: G-D7DH5RBFXV
+========================================================= */
 
 
-/* =========================================
-   BASE DE DATOS DE PELÍCULAS
-========================================= */
+/* =========================================================
+   DATOS DE LAS PELÍCULAS
+========================================================= */
 
 const movies = [
-
     {
         id: 1,
-
         title: "Interstellar",
-
         year: 2014,
-
         genre: "Ciencia ficción",
-
         rating: 8.7,
-
-        poster:
-            "https://image.tmdb.org/t/p/w780/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
-
+        poster: "https://image.tmdb.org/t/p/w780/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
         description:
-            "Un grupo de exploradores viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.",
-
+            "Un grupo de astronautas emprende una misión a través de un agujero de gusano para encontrar un nuevo hogar para la humanidad.",
         review:
-            "Interstellar combina ciencia ficción, exploración espacial y drama familiar en una historia ambiciosa sobre el futuro de la humanidad.",
-
+            "Interstellar combina ciencia ficción, exploración espacial y drama humano en una experiencia cinematográfica ambiciosa. Su historia plantea preguntas sobre el tiempo, el amor y la supervivencia.",
         trailer:
             "https://www.youtube.com/results?search_query=Interstellar+trailer"
     },
 
-
     {
         id: 2,
-
-        title: "The Batman",
-
+        title: "Batman",
         year: 2022,
-
         genre: "Acción",
-
         rating: 8.5,
-
-        poster:
-            "https://image.tmdb.org/t/p/w780/74xTEgt7R36Fpooo50r9T25onhq.jpg",
-
+        poster: "https://image.tmdb.org/t/p/w780/74xTEgt7R36Fpooo50r9T25onhq.jpg",
         description:
-            "Batman investiga una serie de asesinatos que revelan una conspiración relacionada con el pasado de Gotham.",
-
+            "Batman se enfrenta a un asesino que está dejando una serie de pistas y secretos que revelan la corrupción de Gotham City.",
         review:
-            "Una versión oscura y detectivesca de Batman que destaca por su atmósfera, fotografía y actuación.",
-
+            "Una versión oscura y detectivesca del personaje de Batman. La película destaca por su atmósfera, fotografía y una interpretación más sombría del héroe.",
         trailer:
             "https://www.youtube.com/results?search_query=The+Batman+2022+trailer"
     },
 
-
     {
         id: 3,
-
         title: "Harry Potter",
-
         year: 2001,
-
         genre: "Fantasía",
-
         rating: 8.2,
-
-        poster:
-        "https://image.tmdb.org/t/p/w780/fbxQ44VRdM2PVzHSNajUseUteem.jpg",
-
+        poster: "https://image.tmdb.org/t/p/w780/fbxQ44VRdM2PVzHSNajUseUteem.jpg",
         description:
-            "Un joven descubre que pertenece al mundo mágico y comienza sus estudios en el Colegio Hogwarts.",
-
+            "Un joven descubre que pertenece al mundo mágico y comienza sus estudios en el Colegio Hogwarts de Magia y Hechicería.",
         review:
             "Una aventura fantástica que marcó a toda una generación y presentó uno de los universos cinematográficos más reconocibles.",
-
         trailer:
             "https://www.youtube.com/results?search_query=Harry+Potter+Philosophers+Stone+trailer"
     },
 
-
     {
         id: 4,
-
         title: "Jurassic Park",
-
         year: 1993,
-
         genre: "Aventura",
-
         rating: 8.1,
-
-        poster:
-            "https://tse3.mm.bing.net/th/id/OIP.KxlfMDoYahp8bmAZ3nldPQHaLH?pid=Api&P=0&h=180",
-
+        poster: "https://image.tmdb.org/t/p/w780/b1xCNd6xQ4p8QK7H0q4X2zQ8LhQ.jpg",
         description:
-            "Un parque temático lleno de dinosaurios clonados se convierte en una lucha por la supervivencia.",
-
+            "Un parque temático lleno de dinosaurios clonados se convierte en una lucha por la supervivencia cuando las criaturas escapan.",
         review:
-            "Una de las películas de aventuras más influyentes de la historia del cine, con efectos visuales revolucionarios.",
-
+            "Una de las películas de aventuras más influyentes de la historia del cine, famosa por sus efectos visuales y su capacidad para crear tensión.",
         trailer:
             "https://www.youtube.com/results?search_query=Jurassic+Park+1993+trailer"
     }
-
 ];
 
 
-/* =========================================
-   ELEMENTOS HTML
-========================================= */
+/* =========================================================
+   GOOGLE ANALYTICS 4
+========================================================= */
+
+/*
+    Función central para enviar eventos a GA4.
+
+    Comprobamos primero que gtag exista para evitar errores
+    si Analytics todavía no ha terminado de cargar.
+*/
+
+function sendAnalyticsEvent(eventName, parameters = {}) {
+
+    if (typeof gtag === "function") {
+
+        gtag("event", eventName, parameters);
+
+        console.log(
+            "GA4 EVENT:",
+            eventName,
+            parameters
+        );
+
+    } else {
+
+        console.warn(
+            "Google Analytics todavía no está disponible."
+        );
+
+    }
+}
+
+
+/* =========================================================
+   ELEMENTOS DEL DOM
+========================================================= */
 
 const moviesGrid = document.getElementById("moviesGrid");
-
 const searchInput = document.getElementById("searchInput");
-
 const clearSearch = document.getElementById("clearSearch");
-
 const movieCount = document.getElementById("movieCount");
-
 const noResults = document.getElementById("noResults");
-
 const resetSearch = document.getElementById("resetSearch");
 
-const modal = document.getElementById("movieModal");
-
+const movieModal = document.getElementById("movieModal");
 const modalOverlay = document.getElementById("modalOverlay");
-
 const modalClose = document.getElementById("modalClose");
 
 const modalPoster = document.getElementById("modalPoster");
-
 const modalGenre = document.getElementById("modalGenre");
-
 const modalTitle = document.getElementById("modalTitle");
-
 const modalYear = document.getElementById("modalYear");
-
 const modalRating = document.getElementById("modalRating");
-
 const modalDescription = document.getElementById("modalDescription");
-
 const modalTrailer = document.getElementById("modalTrailer");
-
 const modalReview = document.getElementById("modalReview");
 
+const exploreButton = document.getElementById("exploreButton");
 
-/* =========================================
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let currentMovie = null;
+
+
+/* =========================================================
    MOSTRAR PELÍCULAS
-========================================= */
+========================================================= */
 
-function displayMovies(movieList) {
+function renderMovies(movieList) {
 
     moviesGrid.innerHTML = "";
+
+    movieCount.textContent =
+        `${movieList.length} ${movieList.length === 1 ? "película" : "películas"}`;
+
+
+    if (movieList.length === 0) {
+
+        noResults.classList.add("show");
+
+        return;
+
+    }
+
+
+    noResults.classList.remove("show");
 
 
     movieList.forEach(movie => {
 
-        const movieCard = document.createElement("article");
+        const card = document.createElement("article");
 
-        movieCard.classList.add("movie-card");
+        card.className = "movie-card";
 
 
-        movieCard.innerHTML = `
+        card.innerHTML = `
 
             <div class="movie-poster">
 
@@ -175,518 +178,454 @@ function displayMovies(movieList) {
                     src="${movie.poster}"
                     alt="Póster de ${movie.title}"
                     loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.classList.add('image-error');"
                 >
 
-                <span class="movie-rating">
+                <div class="movie-rating">
                     ⭐ ${movie.rating}
-                </span>
+                </div>
 
             </div>
 
 
             <div class="movie-info">
 
+                <span class="movie-genre">
+                    ${movie.genre}
+                </span>
+
                 <h3>
                     ${movie.title}
                 </h3>
 
-
-                <div class="movie-meta">
-
-                    <span>${movie.year}</span>
-
-                    <span>•</span>
-
-                    <span>${movie.genre}</span>
-
-                </div>
-
-
-                <p class="movie-description">
-                    ${movie.description}
+                <p class="movie-year">
+                    ${movie.year}
                 </p>
-
 
                 <div class="movie-actions">
 
                     <button
-                        class="trailer-card-button"
+                        class="movie-button"
+                        data-action="open"
                         data-id="${movie.id}"
                     >
-                        ▶ Tráiler
-                    </button>
-
-                    <button
-                        class="review-card-button"
-                        data-id="${movie.id}"
-                    >
-                        📖 Reseña
+                        Ver película
                     </button>
 
                 </div>
 
             </div>
+
         `;
 
 
-        moviesGrid.appendChild(movieCard);
+        moviesGrid.appendChild(card);
 
     });
 
 
     /*
-        Actualizar contador
+        Añadimos listeners a las tarjetas.
     */
 
-    movieCount.textContent =
-        `${movieList.length} ${movieList.length === 1 ? "película" : "películas"}`;
+    document
+        .querySelectorAll('[data-action="open"]')
+        .forEach(button => {
 
+            button.addEventListener("click", () => {
 
-    /*
-        Mostrar / ocultar mensaje
-    */
+                const movieId = Number(button.dataset.id);
 
-    if (movieList.length === 0) {
-
-        moviesGrid.style.display = "none";
-
-        noResults.style.display = "block";
-
-    } else {
-
-        moviesGrid.style.display = "grid";
-
-        noResults.style.display = "none";
-
-    }
-
-
-    /*
-        Activar botones
-    */
-
-    addMovieButtonEvents();
-
-}
-
-
-/* =========================================
-   EVENTOS DE LAS PELÍCULAS
-========================================= */
-
-function addMovieButtonEvents() {
-
-    const trailerButtons =
-        document.querySelectorAll(".trailer-card-button");
-
-
-    const reviewButtons =
-        document.querySelectorAll(".review-card-button");
-
-
-    /*
-        Botones de tráiler
-    */
-
-    trailerButtons.forEach(button => {
-
-        button.addEventListener("click", function () {
-
-            const movieId =
-                Number(this.dataset.id);
-
-            const movie =
-                movies.find(movie => movie.id === movieId);
-
-
-            if (!movie) return;
-
-
-            /*
-                FUTURO EVENTO GOOGLE ANALYTICS
-
-                Aquí registraremos:
-
-                ver_trailer
-
-                película: nombre de la película
-            */
-
-            console.log(
-                "Evento: ver_trailer",
-                movie.title
-            );
-
-
-            openMovieModal(movie);
-
-        });
-
-    });
-
-
-    /*
-        Botones de reseña
-    */
-
-    reviewButtons.forEach(button => {
-
-        button.addEventListener("click", function () {
-
-            const movieId =
-                Number(this.dataset.id);
-
-            const movie =
-                movies.find(movie => movie.id === movieId);
-
-
-            if (!movie) return;
-
-
-            /*
-                FUTURO EVENTO GOOGLE ANALYTICS
-
-                Aquí registraremos:
-
-                leer_resena
-
-                película: nombre de la película
-            */
-
-            console.log(
-                "Evento: leer_resena",
-                movie.title
-            );
-
-
-            openMovieModal(movie);
-
-        });
-
-    });
-
-}
-
-
-/* =========================================
-   ABRIR MODAL
-========================================= */
-
-function openMovieModal(movie) {
-
-    modalPoster.src = movie.poster;
-
-    modalPoster.alt =
-        `Póster de ${movie.title}`;
-
-    modalGenre.textContent =
-        movie.genre;
-
-    modalTitle.textContent =
-        movie.title;
-
-    modalYear.textContent =
-        movie.year;
-
-    modalRating.textContent =
-        `⭐ ${movie.rating}`;
-
-    modalDescription.textContent =
-        movie.description;
-
-    modalTrailer.href =
-        movie.trailer;
-
-
-    /*
-        Guardamos la reseña
-        temporalmente en el botón.
-    */
-
-    modalReview.dataset.review =
-        movie.review;
-
-
-    modal.classList.add("show");
-
-    document.body.style.overflow = "hidden";
-
-
-    /*
-        FUTURO EVENTO GOOGLE ANALYTICS
-
-        seleccionar_pelicula
-    */
-
-    console.log(
-        "Evento: seleccionar_pelicula",
-        movie.title
-    );
-
-}
-
-
-/* =========================================
-   CERRAR MODAL
-========================================= */
-
-function closeModal() {
-
-    modal.classList.remove("show");
-
-    document.body.style.overflow = "";
-
-}
-
-
-modalClose.addEventListener(
-    "click",
-    closeModal
-);
-
-
-modalOverlay.addEventListener(
-    "click",
-    closeModal
-);
-
-
-/*
-    Cerrar con ESC
-*/
-
-document.addEventListener(
-    "keydown",
-    function (event) {
-
-        if (event.key === "Escape") {
-
-            closeModal();
-
-        }
-
-    }
-);
-
-
-/* =========================================
-   BOTÓN DE RESEÑA
-========================================= */
-
-modalReview.addEventListener(
-    "click",
-    function () {
-
-        const review =
-            this.dataset.review;
-
-
-        alert(
-            "⭐ Reseña de CineAnalytics\n\n" +
-            review
-        );
-
-
-        /*
-            FUTURO EVENTO GOOGLE ANALYTICS
-
-            leer_resena
-        */
-
-        console.log(
-            "Evento: leer_resena"
-        );
-
-    }
-);
-
-
-/* =========================================
-   BUSCADOR
-========================================= */
-
-searchInput.addEventListener(
-    "input",
-    function () {
-
-        const search =
-            this.value
-                .toLowerCase()
-                .trim();
-
-
-        /*
-            Mostrar botón X
-        */
-
-        if (search.length > 0) {
-
-            clearSearch.style.display =
-                "block";
-
-        } else {
-
-            clearSearch.style.display =
-                "none";
-
-        }
-
-
-        /*
-            Filtrar películas
-        */
-
-        const filteredMovies =
-            movies.filter(movie => {
-
-                return (
-
-                    movie.title
-                        .toLowerCase()
-                        .includes(search)
-
-                    ||
-
-                    movie.genre
-                        .toLowerCase()
-                        .includes(search)
-
-                    ||
-
-                    movie.year
-                        .toString()
-                        .includes(search)
-
-                );
+                openMovie(movieId);
 
             });
 
+        });
 
-        displayMovies(filteredMovies);
+}
 
 
-        /*
-            FUTURO EVENTO GOOGLE ANALYTICS
+/* =========================================================
+   ABRIR PELÍCULA
+========================================================= */
 
-            buscar_pelicula
+function openMovie(movieId) {
 
-            Lo añadiremos cuando
-            conectemos GA4.
-        */
+    const movie = movies.find(
+        item => item.id === movieId
+    );
 
-        if (search.length > 2) {
 
-            console.log(
-                "Búsqueda:",
-                search
-            );
+    if (!movie) {
+        return;
+    }
 
+
+    currentMovie = movie;
+
+
+    /*
+        GA4
+
+        Registramos qué película seleccionó el usuario.
+    */
+
+    sendAnalyticsEvent(
+        "seleccionar_pelicula",
+        {
+            pelicula: movie.title,
+            genero: movie.genre,
+            anio: movie.year,
+            valoracion: movie.rating
         }
+    );
 
+
+    /*
+        Actualizamos el modal.
+    */
+
+    modalPoster.src = movie.poster;
+    modalPoster.alt = `Póster de ${movie.title}`;
+
+    modalGenre.textContent = movie.genre;
+    modalTitle.textContent = movie.title;
+    modalYear.textContent = movie.year;
+    modalRating.textContent = `⭐ ${movie.rating}`;
+    modalDescription.textContent = movie.description;
+
+    modalTrailer.href = movie.trailer;
+
+
+    /*
+        Mostramos el modal.
+    */
+
+    movieModal.classList.add("active");
+
+    document.body.classList.add("modal-open");
+
+}
+
+
+/* =========================================================
+   CERRAR MODAL
+========================================================= */
+
+function closeMovie() {
+
+    movieModal.classList.remove("active");
+
+    document.body.classList.remove("modal-open");
+
+    currentMovie = null;
+
+}
+
+
+/* =========================================================
+   BOTÓN VER TRÁILER
+========================================================= */
+
+modalTrailer.addEventListener("click", () => {
+
+    if (!currentMovie) {
+        return;
     }
-);
 
 
-/* =========================================
-   LIMPIAR BUSCADOR
-========================================= */
+    /*
+        Evento GA4:
+        ver_trailer
 
-clearSearch.addEventListener(
-    "click",
-    function () {
+        Este será uno de nuestros eventos principales.
+    */
 
-        searchInput.value = "";
-
-        clearSearch.style.display =
-            "none";
-
-        displayMovies(movies);
-
-    }
-);
-
-
-/* =========================================
-   RESTABLECER BÚSQUEDA
-========================================= */
-
-resetSearch.addEventListener(
-    "click",
-    function () {
-
-        searchInput.value = "";
-
-        clearSearch.style.display =
-            "none";
-
-        displayMovies(movies);
-
-    }
-);
-
-
-/* =========================================
-   NAVEGACIÓN
-========================================= */
-
-document.querySelectorAll(
-    ".nav-link"
-).forEach(link => {
-
-    link.addEventListener(
-        "click",
-        function () {
-
-            document
-                .querySelectorAll(".nav-link")
-                .forEach(item => {
-
-                    item.classList.remove(
-                        "active"
-                    );
-
-                });
-
-
-            this.classList.add("active");
-
+    sendAnalyticsEvent(
+        "ver_trailer",
+        {
+            pelicula: currentMovie.title,
+            genero: currentMovie.genre,
+            anio: currentMovie.year,
+            valoracion: currentMovie.rating
         }
     );
 
 });
 
 
-/* =========================================
-   BOTÓN EXPLORAR
-========================================= */
+/* =========================================================
+   BOTÓN LEER RESEÑA
+========================================================= */
 
-document
-    .getElementById("exploreButton")
-    .addEventListener(
-        "click",
-        function () {
+modalReview.addEventListener("click", () => {
 
-            /*
-                Futuro evento GA4:
+    if (!currentMovie) {
+        return;
+    }
 
-                explorar_catalogo
-            */
 
-            console.log(
-                "Evento: explorar_catalogo"
-            );
+    /*
+        Evento GA4:
+        leer_resena
+    */
 
+    sendAnalyticsEvent(
+        "leer_resena",
+        {
+            pelicula: currentMovie.title,
+            genero: currentMovie.genre,
+            anio: currentMovie.year,
+            valoracion: currentMovie.rating
         }
     );
 
 
-/* =========================================
-   INICIALIZAR SITIO
-========================================= */
+    /*
+        Mostramos la reseña.
+    */
 
-displayMovies(movies);
+    alert(
+        `${currentMovie.title}\n\n${currentMovie.review}`
+    );
+
+});
+
+
+/* =========================================================
+   BUSCADOR
+========================================================= */
+
+let lastSearch = "";
+
+
+searchInput.addEventListener("input", () => {
+
+    const searchTerm =
+        searchInput.value
+            .toLowerCase()
+            .trim();
+
+
+    /*
+        Si no hay búsqueda mostramos todo.
+    */
+
+    if (searchTerm === "") {
+
+        renderMovies(movies);
+
+        return;
+
+    }
+
+
+    /*
+        Buscamos por:
+        - título
+        - género
+        - año
+    */
+
+    const filteredMovies = movies.filter(movie => {
+
+        return (
+            movie.title.toLowerCase().includes(searchTerm) ||
+            movie.genre.toLowerCase().includes(searchTerm) ||
+            movie.year.toString().includes(searchTerm)
+        );
+
+    });
+
+
+    renderMovies(filteredMovies);
+
+
+    /*
+        Para no enviar cientos de eventos mientras el usuario
+        escribe una palabra, registramos la búsqueda solamente
+        cuando cambia el término.
+    */
+
+    if (searchTerm !== lastSearch) {
+
+        sendAnalyticsEvent(
+            "buscar_pelicula",
+            {
+                termino_busqueda: searchTerm,
+                resultados: filteredMovies.length
+            }
+        );
+
+        lastSearch = searchTerm;
+
+    }
+
+});
+
+
+/* =========================================================
+   LIMPIAR BÚSQUEDA
+========================================================= */
+
+clearSearch.addEventListener("click", () => {
+
+    searchInput.value = "";
+
+    lastSearch = "";
+
+    renderMovies(movies);
+
+
+    sendAnalyticsEvent(
+        "limpiar_busqueda"
+    );
+
+});
+
+
+/* =========================================================
+   REINICIAR BÚSQUEDA
+========================================================= */
+
+resetSearch.addEventListener("click", () => {
+
+    searchInput.value = "";
+
+    lastSearch = "";
+
+    renderMovies(movies);
+
+
+    sendAnalyticsEvent(
+        "reset_busqueda"
+    );
+
+});
+
+
+/* =========================================================
+   BOTÓN EXPLORAR PELÍCULAS
+========================================================= */
+
+if (exploreButton) {
+
+    exploreButton.addEventListener("click", () => {
+
+        sendAnalyticsEvent(
+            "explorar_catalogo",
+            {
+                catalogo: "peliculas_destacadas"
+            }
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   NAVEGACIÓN
+========================================================= */
+
+document
+    .querySelectorAll(".nav-link")
+    .forEach(link => {
+
+        link.addEventListener("click", () => {
+
+            const section =
+                link.textContent
+                    .trim()
+                    .toLowerCase();
+
+
+            sendAnalyticsEvent(
+                "navegacion",
+                {
+                    seccion: section
+                }
+            );
+
+        });
+
+    });
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+const logoLink = document.getElementById("logoLink");
+
+
+if (logoLink) {
+
+    logoLink.addEventListener("click", () => {
+
+        sendAnalyticsEvent(
+            "click_logo"
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   CERRAR MODAL
+========================================================= */
+
+modalClose.addEventListener(
+    "click",
+    closeMovie
+);
+
+
+modalOverlay.addEventListener(
+    "click",
+    closeMovie
+);
+
+
+/* =========================================================
+   CERRAR MODAL CON ESC
+========================================================= */
+
+document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape") {
+
+        closeMovie();
+
+    }
+
+});
+
+
+/* =========================================================
+   INICIALIZAR PÁGINA
+========================================================= */
+
+renderMovies(movies);
+
+
+/* =========================================================
+   EVENTO DE CARGA DEL CATÁLOGO
+========================================================= */
+
+sendAnalyticsEvent(
+    "catalogo_cargado",
+    {
+        numero_peliculas: movies.length
+    }
+);
 
 
 console.log(
-    "CineAnalytics iniciado correctamente."
+    "🎬 CineAnalytics iniciado correctamente."
+);
+
+console.log(
+    `📊 Google Analytics 4 configurado: G-D7DH5RBFXV`
 );
