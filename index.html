@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="CineAnalytics — catálogo cinematográfico y experiencia académica de análisis web con Google Analytics 4.">
-  <meta name="theme-color" content="#08090d">
-  <title>CineAnalytics — Descubre tu próxima película</title>
+  <meta name="description" content="CineAnalytics — catálogo de cine con reseñas, tráilers, favoritos y analítica web.">
+  <meta name="author" content="CineAnalytics">
+  <meta name="theme-color" content="#080a0f">
+  <title>CineAnalytics | Explora el cine</title>
 
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-D7DH5RBFXV"></script>
@@ -13,149 +14,187 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-D7DH5RBFXV');
+
+    gtag('config', 'G-D7DH5RBFXV', {
+      send_page_view: true,
+      page_title: document.title
+    });
   </script>
 
+  <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <div class="ambient ambient-one"></div>
-  <div class="ambient ambient-two"></div>
+  <div class="noise"></div>
 
-  <header class="site-header">
-    <div class="header-inner">
+  <header class="navbar" id="top">
+    <div class="nav-container">
       <a href="#inicio" class="brand" id="logoLink" aria-label="CineAnalytics inicio">
         <span class="brand-mark">C</span>
-        <span class="brand-name">Cine<span>Analytics</span></span>
+        <span>Cine<span>Analytics</span></span>
       </a>
 
-      <nav class="nav" id="navMenu">
-        <a class="nav-link active" href="#inicio">Inicio</a>
-        <a class="nav-link" href="#peliculas">Catálogo</a>
-        <a class="nav-link" href="#nosotros">Nosotros</a>
+      <nav class="nav-menu" aria-label="Navegación">
+        <a href="#inicio" class="nav-link active" data-nav="inicio">Inicio</a>
+        <a href="#catalogo" class="nav-link" data-nav="catalogo">Catálogo</a>
+        <a href="#categorias" class="nav-link" data-nav="categorias">Categorías</a>
+        <a href="#nosotros" class="nav-link" data-nav="nosotros">Proyecto</a>
       </nav>
 
-      <div class="header-actions">
-        <button class="icon-button" id="showFavorites" type="button" aria-label="Ver favoritos" title="Mis favoritos">
-          <span>♥</span><b id="favoriteCount">0</b>
-        </button>
-        <button class="menu-button" id="mobileMenu" type="button" aria-label="Abrir menú" aria-expanded="false">
-          <span></span><span></span>
-        </button>
-      </div>
+      <button class="nav-favorites" id="favoritesButton" type="button">
+        <span>♡</span> Favoritos <b id="favoritesCount">0</b>
+      </button>
     </div>
   </header>
 
-  <main id="inicio">
-    <section class="hero">
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-bg"></div>
       <div class="hero-grid"></div>
-      <div class="hero-inner">
-        <div class="hero-copy">
-          <div class="eyebrow"><span></span> CINE · DATOS · EXPERIENCIA</div>
-          <h1>Descubre historias.<br><em>Analiza tu elección.</em></h1>
-          <p>Un catálogo cinematográfico diseñado para explorar películas y, al mismo tiempo, observar cómo interactúan los usuarios con una experiencia web.</p>
-          <div class="hero-actions">
-            <a href="#peliculas" class="primary-button" id="exploreButton">Explorar catálogo <span>↗</span></a>
-            <button class="ghost-button" id="randomMovie" type="button">Sorpréndeme <span>✦</span></button>
-          </div>
+      <div class="hero-content">
+        <div class="eyebrow"><span></span> CINE · EXPERIENCIA · DATOS</div>
+        <h1>Elige una historia.<br><em>Descubre una experiencia.</em></h1>
+        <p>Explora 16 películas, encuentra tu próxima favorita y descubre cómo interactúan los usuarios con el cine digital.</p>
+        <div class="hero-actions">
+          <a href="#catalogo" class="btn btn-primary" id="heroExplore">Explorar catálogo <span>→</span></a>
+          <button class="btn btn-ghost" id="heroRandom" type="button">✦ Sorpréndeme</button>
         </div>
         <div class="hero-stats">
-          <div class="stat-card"><strong id="heroMovieCount">16</strong><span>Películas</span></div>
-          <div class="stat-card"><strong>6</strong><span>Categorías</span></div>
-          <div class="stat-card"><strong>4K</strong><span>Experiencia</span></div>
+          <div><strong>16</strong><span>Películas</span></div>
+          <div><strong>8</strong><span>Categorías</span></div>
+          <div><strong>GA4</strong><span>Analítica</span></div>
         </div>
       </div>
     </section>
 
-    <section class="catalog-section" id="peliculas">
-      <div class="section-heading">
-        <div>
-          <span class="section-kicker">CATÁLOGO</span>
-          <h2>Películas destacadas</h2>
+    <section class="catalog-section" id="catalogo">
+      <div class="section-container">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">CATÁLOGO</div>
+            <h2>Películas seleccionadas</h2>
+            <p>Filtra, busca, compara y descubre nuevos títulos.</p>
+          </div>
+          <div class="catalog-result"><strong id="resultCount">16</strong> resultados</div>
         </div>
-        <p>Explora por categoría o encuentra una película específica.</p>
-      </div>
 
-      <div class="catalog-toolbar">
-        <div class="search-wrap">
-          <span class="search-icon">⌕</span>
-          <input id="searchInput" type="search" placeholder="Buscar por título, género o año..." autocomplete="off">
-          <button id="clearSearch" type="button" aria-label="Limpiar búsqueda">×</button>
+        <div class="search-panel">
+          <div class="search-input">
+            <span>⌕</span>
+            <input id="searchInput" type="search" placeholder="Buscar película, género, director o año..." autocomplete="off">
+            <button id="clearSearch" type="button" aria-label="Limpiar búsqueda">×</button>
+          </div>
+          <div class="sort-control">
+            <label for="sortSelect">Ordenar</label>
+            <select id="sortSelect">
+              <option value="featured">Destacadas</option>
+              <option value="rating">Mejor puntuación</option>
+              <option value="year-desc">Más recientes</option>
+              <option value="year-asc">Más antiguas</option>
+              <option value="title">Título A-Z</option>
+            </select>
+          </div>
         </div>
-        <button class="random-small" id="randomMovieTop" type="button">✦ Aleatoria</button>
-      </div>
 
-      <div class="filter-row" id="filterRow">
-        <button class="filter-button active" data-genre="todos" type="button">Todas <b>16</b></button>
-        <button class="filter-button" data-genre="ciencia-ficcion" type="button">Ciencia ficción <b>4</b></button>
-        <button class="filter-button" data-genre="accion" type="button">Acción <b>4</b></button>
-        <button class="filter-button" data-genre="fantasia" type="button">Fantasía <b>3</b></button>
-        <button class="filter-button" data-genre="aventura" type="button">Aventura <b>3</b></button>
-        <button class="filter-button" data-genre="drama" type="button">Drama <b>2</b></button>
-      </div>
+        <div class="filter-strip" id="genreFilters">
+          <button class="filter active" data-genre="all">Todas</button>
+          <button class="filter" data-genre="ciencia-ficcion">Ciencia ficción</button>
+          <button class="filter" data-genre="accion">Acción</button>
+          <button class="filter" data-genre="fantasia">Fantasía</button>
+          <button class="filter" data-genre="aventura">Aventura</button>
+          <button class="filter" data-genre="drama">Drama</button>
+          <button class="filter" data-genre="animacion">Animación</button>
+          <button class="filter" data-genre="crimen">Crimen</button>
+          <button class="filter" data-genre="thriller">Thriller</button>
+        </div>
 
-      <div class="catalog-meta">
-        <span id="movieCount">16 películas</span>
-        <i></i>
-        <span id="activeCategory">Mostrando selección completa</span>
-      </div>
+        <div class="movies-grid" id="moviesGrid"></div>
 
-      <div class="movies-grid" id="moviesGrid"></div>
-
-      <div class="empty-state" id="noResults">
-        <div class="empty-icon">⌕</div>
-        <h3>No encontramos resultados</h3>
-        <p>Prueba con otro título, género o año.</p>
-        <button id="resetSearch" type="button">Restablecer catálogo</button>
+        <div class="empty-state hidden" id="emptyState">
+          <div>◌</div>
+          <h3>No encontramos resultados</h3>
+          <p>Prueba otro término o restablece los filtros.</p>
+          <button class="btn btn-primary" id="resetFilters" type="button">Restablecer</button>
+        </div>
       </div>
     </section>
 
-    <section class="about-section" id="nosotros">
-      <div class="about-card">
+    <section class="categories-section" id="categorias">
+      <div class="section-container">
+        <div class="section-heading compact">
+          <div>
+            <div class="eyebrow">DESCUBRIR</div>
+            <h2>Explora por categoría</h2>
+          </div>
+        </div>
+        <div class="category-grid" id="categoryGrid"></div>
+      </div>
+    </section>
+
+    <section class="project-section" id="nosotros">
+      <div class="section-container project-layout">
         <div>
-          <span class="section-kicker">SOBRE EL PROYECTO</span>
+          <div class="eyebrow">PROYECTO ACADÉMICO</div>
           <h2>El cine también<br><em>se puede analizar.</em></h2>
-          <p>CineAnalytics es un proyecto académico creado para estudiar la interacción de los usuarios con un sitio web mediante Google Analytics 4.</p>
+          <p>CineAnalytics fue creado para estudiar la interacción de los usuarios con un sitio web y comprender cómo la analítica digital puede apoyar la toma de decisiones.</p>
+          <div class="measurement-list">
+            <span>✓ Navegación</span><span>✓ Búsquedas</span><span>✓ Filtros</span><span>✓ Tráilers</span><span>✓ Reseñas</span><span>✓ Favoritos</span><span>✓ Compartidos</span><span>✓ Conversiones</span>
+          </div>
         </div>
-        <div class="about-metrics">
-          <div><span>01</span><strong>Explorar</strong><small>Catálogo por categorías</small></div>
-          <div><span>02</span><strong>Interactuar</strong><small>Favoritos, reseñas y tráileres</small></div>
-          <div><span>03</span><strong>Analizar</strong><small>Eventos y comportamiento</small></div>
+        <div class="measurement-card">
+          <div class="card-top"><span class="live-dot"></span> MEDICIÓN ACTIVA</div>
+          <div class="ga-mark">GA4</div>
+          <h3>Google Analytics 4</h3>
+          <p>La experiencia registra eventos de interacción para el análisis académico.</p>
+          <div class="measurement-id">
+            <span>ID DE MEDICIÓN</span>
+            <strong>G-D7DH5RBFXV</strong>
+          </div>
+          <div class="metric-mini">
+            <div><b id="trackedEvents">0</b><span>Eventos en sesión</span></div>
+            <div><b id="sessionFavorites">0</b><span>Favoritos</span></div>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <div class="modal" id="movieModal" aria-hidden="true">
-    <div class="modal-backdrop" id="modalOverlay"></div>
-    <article class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal hidden" id="movieModal" aria-hidden="true">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <article class="movie-modal">
       <button class="modal-close" id="modalClose" type="button" aria-label="Cerrar">×</button>
       <div class="modal-poster"><img id="modalPoster" src="" alt=""></div>
       <div class="modal-body">
-        <span class="modal-genre" id="modalGenre"></span>
-        <h2 id="modalTitle">Película</h2>
-        <div class="modal-meta"><span id="modalYear"></span><i>•</i><span id="modalDuration"></span><i>•</i><strong id="modalRating"></strong></div>
-        <p id="modalDescription"></p>
-        <div class="director"><span>Dirección</span><strong id="modalDirector"></strong></div>
+        <div class="modal-genre" id="modalGenre"></div>
+        <h2 id="modalTitle"></h2>
+        <div class="modal-meta" id="modalMeta"></div>
+        <p class="modal-director" id="modalDirector"></p>
+        <p class="modal-description" id="modalDescription"></p>
         <div class="modal-actions">
-          <a id="modalTrailer" class="primary-button" href="#" target="_blank" rel="noopener noreferrer">▶ Ver tráiler</a>
-          <button id="modalReview" class="secondary-button" type="button">▤ Leer reseña</button>
-          <button id="modalFavorite" class="circle-button" type="button" aria-label="Añadir a favoritos">♡</button>
-          <button id="modalShare" class="circle-button" type="button" aria-label="Compartir película">↗</button>
+          <a class="btn btn-primary" id="modalTrailer" target="_blank" rel="noopener noreferrer">▶ Ver tráiler</a>
+          <button class="btn btn-ghost" id="modalReview" type="button">▣ Leer reseña</button>
+          <button class="btn btn-ghost" id="modalFavorite" type="button">♡ Favorita</button>
+          <button class="btn btn-ghost" id="modalShare" type="button">↗ Compartir</button>
+        </div>
+        <div class="review-box hidden" id="reviewBox">
+          <div class="eyebrow">RESEÑA</div>
+          <p id="modalReviewText"></p>
         </div>
       </div>
     </article>
   </div>
 
-  <div class="toast" id="cineToast"><span>●</span><p id="toastText"></p></div>
+  <div class="toast" id="toast"></div>
 
-  <footer class="footer">
-    <div><strong>Cine<span>Analytics</span></strong><p>Proyecto académico de análisis web · 2026</p></div>
-    <div class="footer-right">Google Analytics 4 · <b>G-D7DH5RBFXV</b></div>
+  <footer>
+    <div class="footer-container">
+      <a href="#inicio" class="brand"><span class="brand-mark">C</span><span>Cine<span>Analytics</span></span></a>
+      <p>Proyecto académico de analítica web · Google Analytics 4</p>
+      <small>Measurement ID: G-D7DH5RBFXV · © 2026</small>
+    </div>
   </footer>
 
   <script src="script.js"></script>
